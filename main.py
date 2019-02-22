@@ -28,6 +28,7 @@ print(R, C, L, H, T, M)
 
 def shapesOfN(n):
     shapes = list()
+    tempShapes = list()
     shapes.append((1, n)) # Basic shapes
     shapes.append((n, 1)) # Vertical and Horizontal Line
 
@@ -35,14 +36,19 @@ def shapesOfN(n):
         for i in range(2, n, 2):
             for o in range(1, n):
                 if i*o<=n:
-                    shapes.append((i, o))
-                    shapes.append((o, i))
+                    tempShapes.append((i, o))
+                    tempShapes.append((o, i))
     else:
         for i in range(2, n-1, 2):
             for o in range(1, n-1):
                 if i*o<=n:
-                    shapes.append((i, o))
-                    shapes.append((o, i))
+                    tempShapes.append((i, o))
+                    if(i != o):
+                        tempShapes.append((o, i))
+
+    #ordering shapes by maximum area
+
+    shapes.append(list(reversed(tempShapes)))
 
     return shapes
 
