@@ -27,6 +27,7 @@ print("R C L H T  M")
 print(R, C, L, H, T, M)
 
 def shapesOfN(n):
+    #Shapes are stores in (Row, Column) format
     shapes = list()
     tempShapes = list()
     shapes.append((1, n)) # Basic shapes
