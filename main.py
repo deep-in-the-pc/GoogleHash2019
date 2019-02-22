@@ -23,13 +23,16 @@ def shapesOfN(n):
 
     #ordering shapes by maximum area
 
-    shapes.append(list(reversed(tempShapes)))
+    for i in reversed(tempShapes):
+        shapes.append(i)
 
     return shapes
 
 def compatibilitySearch(matrix, shape):
     #Returns list of x1, y1, x2, y2 coordinates for slices
     slices = list()
+    T = 0
+    M = 0
 
 
 
@@ -56,7 +59,6 @@ def main():
     max_s = ceil(R*C/H)
     print("Max number of slices by pieces = " + str(min_s))
     print("Min number of slices by biggest slice = " + str(max_s))
-    print("")
     #Basic Info
     print("\n")
     print("R C L H T  M")
