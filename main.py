@@ -25,6 +25,29 @@ print("")
 print("\n")
 print("R C L H T  M")
 print(R, C, L, H, T, M)
-print(Pmatrix)
+
+def shapesOfN(n):
+    shapes = list()
+    shapes.append((1, n)) # Basic shapes
+    shapes.append((n, 1)) # Vertical and Horizontal Line
+
+    if n%2==0:
+        for i in range(2, n, 2):
+            for o in range(1, n):
+                if i*o<=n:
+                    shapes.append((i, o))
+                    shapes.append((o, i))
+    else:
+        for i in range(2, n-1, 2):
+            for o in range(1, n-1):
+                if i*o<=n:
+                    shapes.append((i, o))
+                    shapes.append((o, i))
+
+    return shapes
+
+print("Possible Shapes =", shapesOfN(H))
+
 for row in Pmatrix:
     print(row)
+
