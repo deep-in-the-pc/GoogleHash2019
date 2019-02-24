@@ -42,8 +42,25 @@ def shapesOfN2(x,y):
     return ret
 
 def main():
-    tmp = shapesOfN2(1,12)
-    print(tmp)
+    with open("Data Sets\\b_small.in", 'r') as data:
+        firstline = data.readline()
+        R, C, L, H = [int(i) for i in firstline.split()]
+        T = 0
+        M = 0
+        Pmatrix = []
+        for row in data.readlines():
+            temp = list(row)[:-1]
+            T += temp.count('T')
+            M += temp.count('M')
+            Pmatrix.append(temp)
 
+    shapes = shapesOfN2(L,H)
+    print(shapes)
+    currShape = list(shapes.keys())[0] 
+    print(currShape)
+    for row in Pmatrix:
+        print(row)
 if __name__ == "__main__":
     main()
+
+    
