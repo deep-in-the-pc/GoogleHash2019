@@ -3,7 +3,6 @@ from math import *
 def shapesOfN(H, L):
     #Shapes are stores in (Row, Column): Area format
     shapes = dict()
-    tempShapes = list()
 
     for i in range(1, ceil(sqrt(H))+1):
         for o in range(1, H+1):
