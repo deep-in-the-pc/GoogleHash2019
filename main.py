@@ -1,4 +1,5 @@
 from math import *
+from utility import *
 
 def compatibilitySearch(matrix, shape):
     #Returns list of x1, y1, x2, y2 coordinates for slices
@@ -38,7 +39,7 @@ def main():
 
 
 
-    print("Possible Shapes =", shapesOfN(H))
+    print("Possible Shapes =", shapesOfN(12, L))
 
     for row in Pmatrix:
         print(row)
