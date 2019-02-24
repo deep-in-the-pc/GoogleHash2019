@@ -44,11 +44,7 @@ def shapeToSlice(topleft, shape):
 
 def isSliceComp(Matrix, L, Slice, R, C):
     #Checks if a slice is compatible with the matrix rules
-    if(Slice == (0,0, 2,1)):
-        print("here")
     if(Slice[2]>R-1 or Slice[3]>C-1):
-        if (Slice == (0, 0, 2, 1)):
-            print(Slice[2], Slice[3], R-1, C-1)
 
         return False
     testSlice = Matrix[Slice[0]:Slice[2]+1, Slice[1]:Slice[3]+1]
@@ -56,15 +52,9 @@ def isSliceComp(Matrix, L, Slice, R, C):
     MT = dict(zip(unique, counts))
     if (MT.get('M') != None and MT.get('T') != None):
         if(MT.get('M')<L or MT.get('T')<L):
-            if (Slice == (0, 0, 2, 1)):
-                print(MT)
-                print(MT.get('M'), MT.get('T'))
+
             return False
     else:
-        if (Slice == (0, 0, 2, 1)):
-            print(Slice[0],Slice[2], Slice[1],Slice[3])
-            print(testSlice)
-            print(MT.get('M'), MT.get('T'))
         return False
 
 
