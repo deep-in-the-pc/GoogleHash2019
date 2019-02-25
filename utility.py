@@ -59,3 +59,10 @@ def isSliceComp(Matrix, L, Slice, R, C):
 
 
     return True
+
+def coorToCut(Cmatrix, Slice, shape):
+
+    return Cmatrix[Slice[0]:Slice[2]+1, Slice[1]:Slice[3]+1].reshape(shape[0]*shape[1],2)
+
+def in1d_broadcast_approach(A,B):
+    return A[~((A[:,None,:] == B).all(-1)).any(1)]

@@ -11,8 +11,107 @@ def compatibilitySearch(matrix, shape):
 
     return slices
 
+def densityMap(matrix, nMin, R, C):
+    x=0
+    y=0
+    dMap = list()
+    dRow = list()
+    for r in matrix:
+        x=0
+        dRow = list()
+        for c in r:
+            density = 0
+            if c == 'T':
+                if(y>0 and x>0):
+                    if matrix[y-1][x-1] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y>0):
+                    if matrix[y-1][x] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y>0 and x<C-1):
+                    if matrix[y-1][x+1] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(x>0):
+                    if matrix[y][x-1] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(x<C-1):
+                    if matrix[y][x+1] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y<R-1 and x>0):
+                    if matrix[y+1][x-1] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y<R-1):
+                    if matrix[y+1][x] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y<R-1 and x<C-1):
+                    if matrix[y+1][x+1] == 'M':
+                        density += nMin
+                    else:
+                        density += nMin-1
+            else:
+                if(y>0 and x>0):
+                    if matrix[y-1][x-1] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y>0):
+                    if matrix[y-1][x] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y>0 and x<C-1):
+                    if matrix[y-1][x+1] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(x>0):
+                    if matrix[y][x-1] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(x<C-1):
+                    if matrix[y][x+1] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y<R-1 and x>0):
+                    if matrix[y+1][x-1] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y<R-1):
+                    if matrix[y+1][x] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+                if(y<R-1 and x<C-1):
+                    if matrix[y+1][x+1] == 'T':
+                        density += nMin
+                    else:
+                        density += nMin-1
+            dRow.append(density)
+            x+=1
+        dMap.append(dRow)
+        y += 1
+    return dMap
+
+
 def main():
-    with open("Data Sets\\b_small.in", 'r') as data:
+    with open("Data Sets\\a_example.in", 'r') as data:
         firstline = data.readline()
         R, C, L, H = [int(i) for i in firstline.split()]
         T = 0
@@ -42,6 +141,11 @@ def main():
     print("Possible Shapes =", shapesOfN(12, L))
 
     for row in Pmatrix:
+        print(row)
+
+    Dmatrix = densityMap(Pmatrix, L, R, C)
+
+    for row in Dmatrix:
         print(row)
 
 if __name__ == "__main__":
