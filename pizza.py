@@ -152,7 +152,7 @@ def main():
     global cols
     global shapes
 
-    with open("Data Sets\\b_small.in", 'r') as data:
+    with open("Data Sets\\c_medium.in", 'r') as data:
         firstline = data.readline()
         rows, cols, minToppings, maxSize = [int(i) for i in firstline.split()]
         T = 0
