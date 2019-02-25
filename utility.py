@@ -20,14 +20,20 @@ def shapesOfN(H, L, R, C):
 
     return shapes
 
-def checkColision(Slice, Outputs):
+def checkColision(coordcut, Cutcoordinates):
     #Slice = (R1, C1, R2, C2)
     #returns True on colision
-    if len(Outputs) == 0:
+    if len(Cutcoordinates) == 0:
         return False
-    for slice in Outputs:
-        if isOverlaping(Slice, slice):
+    for i in coordcut:
+        if tuple(i) in Cutcoordinates:
             return True
+    #old method
+    # for slice in Outputs:
+    #     if isOverlaping(Slice, slice):
+    #         return True
+
+
     return False
 
 def isOverlaping(sliceA, sliceB):

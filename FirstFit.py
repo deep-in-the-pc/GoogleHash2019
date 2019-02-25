@@ -4,7 +4,7 @@ from utility import *
 import itertools
 
 def main():
-    input = "Data Sets\\d_big.in"
+    input = "Data Sets\\c_medium.in"
     t0 = time.time()
     with open(input, 'r') as data:
         firstline = data.readline()
@@ -38,30 +38,37 @@ def main():
         Cmatrix = np.array(out).reshape(int(R),int(C),2)
 
         Carray = Cmatrix.reshape(int(R)*int(C), 2)
-
+        Cutcoords = set()
 
         notEmpty = len(Carray)
         n = 0
         isRemoved = 0
-        while(notEmpty):
+        while(n<C*R):
             #print(n, Carray)
+            if tuple(Carray[n]) in Cutcoords:
+                n+=1
+                continue
             isRemoved = 0
             for i in list(reversed(list(shapes))):
-                potSlice = shapeToSlice((Carray[0][0], Carray[0][1]), i)
-                if(isSliceComp(Pmatrix, L, potSlice, R, C) and not checkColision(potSlice, Outputs)):
-                    Outputs.append(potSlice)
+                potSlice = shapeToSlice((Carray[n][0], Carray[n][1]), i)
+                if isSliceComp(Pmatrix, L, potSlice, R, C ):
                     coordcut = coorToCut(Cmatrix, potSlice, i)
-                    #print(coordcut, potSlice, i)
-                    Carray = in1d_broadcast_approach(Carray, coordcut)
-                    notEmpty=len(Carray)
-                    isRemoved = 1
-                    break
+                    if not checkColision(coordcut, Cutcoords):
+                        Outputs.append(potSlice)
+                        coordcut_hash = map(tuple, coordcut)
+                        for x in coordcut_hash:
+                            Cutcoords.add(x)
+
+                        #Carray = in1d_broadcast_approach(Carray, coordcut)
+                        notEmpty=len(Carray)
+                        isRemoved = 1
+                        break
+            #print(Cutcoords)
             #print("len", notEmpty)
             if not isRemoved and notEmpty:
-                Carray = np.delete(Carray, 0, 0)
+                #Carray = np.delete(Carray, 0, 0)
                 notEmpty = len(Carray)
             n+=1
-
 
         #Just Slower
 
