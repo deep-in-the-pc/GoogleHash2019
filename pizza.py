@@ -1,5 +1,6 @@
 from math import *
 from functools import reduce
+import time
 
 numOfSlices = 0
 coordOfSlices = []
@@ -67,17 +68,17 @@ def takeSlice(startPos,shape):
 
     outOfBounds = checkOutOfBounds(idxOfShape)
     if outOfBounds:
-        print("OutOfbounds")
+        #print("OutOfbounds")
         return False
     
     hasCol = checkCollisions(shape,startPos,idxOfShape)
     if hasCol:
-        print("Collisions")
+        #print("Collisions")
         return False
     
     (numT,numM) = checkNumberOfTandM(idxOfShape)
     if numT < minToppings or numM < minToppings:
-        print("MimumOfToppings")
+        #print("MimumOfToppings")
         return False
     else:
         occupiedCells =   occupiedCells.union(idxOfShape)
@@ -87,7 +88,7 @@ def takeSlice(startPos,shape):
 
 def allIdxOfShape(startPos,shape):
     idxOfShape =  set()
-    print(idxOfShape)
+   # print(idxOfShape)
     for i in range(startPos[0],startPos[0]+shape[0]):
        for j in range(startPos[1],startPos[1]+shape[1]):   
            idxOfShape.add((i,j))
@@ -146,13 +147,15 @@ def bestFit():
 
 
 def main():
+    t0 = time.time()
+
     global matrix
     global minToppings
     global rows
     global cols
     global shapes
 
-    with open("Data Sets\\c_medium.in", 'r') as data:
+    with open("Data Sets\\_medium.in", 'r') as data:
         firstline = data.readline()
         rows, cols, minToppings, maxSize = [int(i) for i in firstline.split()]
         T = 0
@@ -172,6 +175,11 @@ def main():
         print(row)
     
     bestFit()
+
+    t1 = time.time()
+
+
+    print("Time",t1-t0)
     """
     res = takeSlice((0,0),(2,2))
     res1 = takeSlice((1,0),(2,2))
@@ -180,8 +188,9 @@ def main():
    
     """
     print("num of slices",numOfSlices)
-    print(len(occupiedCells),"out of",rows*cols)
-    print("coords",coordOfSlices)
+    print(len(occupiedCells),"out of",rows*cols,(float(len(occupiedCells))/(rows*cols))*100,"%")
+    #print("coords",coordOfSlices)
+
 
 if __name__ == "__main__":
     main()
