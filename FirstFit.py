@@ -1,9 +1,10 @@
 import numpy as np
 import time
 from utility import *
+import itertools
 
 def main():
-    input = "Data Sets\\c_medium.in"
+    input = "Data Sets\\d_big.in"
     t0 = time.time()
     with open(input, 'r') as data:
         firstline = data.readline()
@@ -24,12 +25,55 @@ def main():
         print(R, C, L, H, T, M)
         print(Pmatrix)
         print("\nPossible Shapes:", shapes)
-        for y in range(0, R):
-            for x in range(0 ,C):
-                for i in list(reversed(list(shapes))):
-                    potSlice = shapeToSlice((y, x), i)
-                    if(isSliceComp(Pmatrix, L, potSlice, R, C) and not checkColision(potSlice, Outputs)):
-                        Outputs.append(potSlice)
+
+        # Faster but less effective
+
+        Row = np.arange(int(R))
+        Col = np.arange(int(C))
+
+        out = list(itertools.product(Row, Col))
+
+        out.sort(key=lambda x: x[0])
+
+        Cmatrix = np.array(out).reshape(int(R),int(C),2)
+
+        Carray = Cmatrix.reshape(int(R)*int(C), 2)
+
+
+        notEmpty = len(Carray)
+        n = 0
+        isRemoved = 0
+        while(notEmpty):
+            #print(n, Carray)
+            isRemoved = 0
+            for i in list(reversed(list(shapes))):
+                potSlice = shapeToSlice((Carray[0][0], Carray[0][1]), i)
+                if(isSliceComp(Pmatrix, L, potSlice, R, C) and not checkColision(potSlice, Outputs)):
+                    Outputs.append(potSlice)
+                    coordcut = coorToCut(Cmatrix, potSlice, i)
+                    #print(coordcut, potSlice, i)
+                    Carray = in1d_broadcast_approach(Carray, coordcut)
+                    notEmpty=len(Carray)
+                    isRemoved = 1
+                    break
+            #print("len", notEmpty)
+            if not isRemoved and notEmpty:
+                Carray = np.delete(Carray, 0, 0)
+                notEmpty = len(Carray)
+            n+=1
+
+
+        #Just Slower
+
+        # for y in range(0, R):
+        #     for x in range(0 ,C):
+        #         for i in list(reversed(list(shapes))):
+        #             potSlice = shapeToSlice((y, x), i)
+        #             if(isSliceComp(Pmatrix, L, potSlice, R, C) and not checkColision(potSlice, Outputs)):
+        #                 Outputs.append(potSlice)
+
+
+
         t1 = time.time()
         print("Outputs", Outputs)
         filledArea = 0
