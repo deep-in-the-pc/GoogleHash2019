@@ -4,7 +4,7 @@ from utility import *
 import itertools
 
 def main():
-    input = "Data Sets\\c_medium.in"
+    input = "Data Sets\\d_big.in"
     t0 = time.time()
     with open(input, 'r') as data:
         firstline = data.readline()
@@ -40,15 +40,12 @@ def main():
         Carray = Cmatrix.reshape(int(R)*int(C), 2)
         Cutcoords = set()
 
-        notEmpty = len(Carray)
         n = 0
-        isRemoved = 0
         while(n<C*R):
             #print(n, Carray)
             if tuple(Carray[n]) in Cutcoords:
                 n+=1
                 continue
-            isRemoved = 0
             for i in list(reversed(list(shapes))):
                 potSlice = shapeToSlice((Carray[n][0], Carray[n][1]), i)
                 if isSliceComp(Pmatrix, L, potSlice, R, C ):
@@ -58,27 +55,8 @@ def main():
                         coordcut_hash = map(tuple, coordcut)
                         for x in coordcut_hash:
                             Cutcoords.add(x)
-
-                        #Carray = in1d_broadcast_approach(Carray, coordcut)
-                        notEmpty=len(Carray)
-                        isRemoved = 1
                         break
-            #print(Cutcoords)
-            #print("len", notEmpty)
-            if not isRemoved and notEmpty:
-                #Carray = np.delete(Carray, 0, 0)
-                notEmpty = len(Carray)
             n+=1
-
-        #Just Slower
-
-        # for y in range(0, R):
-        #     for x in range(0 ,C):
-        #         for i in list(reversed(list(shapes))):
-        #             potSlice = shapeToSlice((y, x), i)
-        #             if(isSliceComp(Pmatrix, L, potSlice, R, C) and not checkColision(potSlice, Outputs)):
-        #                 Outputs.append(potSlice)
-
 
 
         t1 = time.time()
