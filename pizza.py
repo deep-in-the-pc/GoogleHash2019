@@ -1,6 +1,7 @@
 from math import *
 from functools import reduce
 import time
+from random import shuffle
 
 numOfSlices = 0
 coordOfSlices = []
@@ -133,18 +134,56 @@ def bestFit():
     global rows
     global cols
 
-    currShape = shapes[0] 
+    """ currShape = shapes[0] 
     print(currShape)
+    """
+    #shapes = mixedShuffle()
+    #shapes1 = list(reversed(shapes))
+    #shapes = bigHeadShuffle()
     
-    for i in range(rows):
-        for j in range(cols):
-            res = takeSlice((i,j),currShape)
-            if res:
-                i = i+currShape[0]-1
-                j = j+currShape[1]-1
-
+    print(shapes)
+    for currShape in shapes:
+        for i in range(rows):
+            for j in range(cols):
+                if((i,j) not in occupiedCells):
+                    res = takeSlice((i,j),currShape)
+                    if res:
+                        i = i+currShape[0]-1
+                        j = j+currShape[1]-1
     
+def mixedShuffle():
+    res = []
+    size=int(len(shapes))
+    for l in range(ceil(size/2)):
+        val1 = shapes[l]
+        val2 = shapes[size-l-1]
+        if val1 != val2:
+            res.append(val1)
+        res.append(val2)
+    return res
 
+def bigHeadShuffle():
+    res = []
+    res.append(shapes[0])
+    lis = shapes[1:len(shapes)]
+    shuffle(lis)
+    res.extend(lis)
+    return res
+
+def positionShuffle():
+    res = []
+
+    for (x,y) in shapes:
+        if y>x:
+            res.append((x,y))
+    for (x,y) in shapes:
+        if y==x:
+            res.append((x,y))
+    for (x,y) in shapes:
+        if y<x:
+            res.append((x,y))
+    
+    return res
 
 def main():
     t0 = time.time()
@@ -155,7 +194,7 @@ def main():
     global cols
     global shapes
 
-    with open("Data Sets\\_medium.in", 'r') as data:
+    with open("Data Sets\\c_medium.in", 'r') as data:
         firstline = data.readline()
         rows, cols, minToppings, maxSize = [int(i) for i in firstline.split()]
         T = 0
@@ -168,11 +207,6 @@ def main():
             matrix.append(temp)
 
     shapes = list(shapesOfN2(minToppings*2,maxSize).keys())
-    
-    print(shapes)
-    
-    for row in matrix:
-        print(row)
     
     bestFit()
 
