@@ -8,6 +8,15 @@ class Photo():
         self.tagsS = tagsS
         self.tagsL = tagsL
 
+    def comparePhotos(self,photo2):
+        inters = self.tags & photo2.tags
+        photo1_only = self.tags - photo2.tags
+        photo2_only = photo2.tags - self.tags
+
+        photo1_only = self.nT - inters
+        photo2_only = photo2.nT - inters
+
+        return min(inters,photo1_only,photo2_only)
 
 
 def readInput(inputFile):
@@ -28,3 +37,6 @@ def readInput(inputFile):
             n+=1
 
     return N, photos
+
+def sortPhotos(photos):
+    sorted(photos, key=lambda photo: photo.n) 
