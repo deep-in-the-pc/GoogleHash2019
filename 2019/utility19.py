@@ -1,10 +1,12 @@
 import numpy as np
 
 class Photo():
-    def __init__(self, o, nT, tags):
+    def __init__(self, id, o, nT, tagsS, tagsL):
+        self.id = id
         self.Orientation = o
         self.nTags = nT
-        self.tags = tags
+        self.tagsS = tagsS
+        self.tagsL = tagsL
 
 
 
@@ -14,12 +16,15 @@ def readInput(inputFile):
         photos = list()
         firstline = data.readline()
         N = int(firstline)
+        n = 0
         for row in data.readlines():
             line = row.split()
             O = line[0]
             nT = int(line[1])
-            tags = [i for i in line[2:]]
+            tagsL = [i for i in line[2:]]
+            tagsS = set(tagsL)
 
-            photos.append(Photo(O, nT, tags))
+            photos.append(Photo(n, O, nT, tagsS, tagsL))
+            n+=1
 
     return N, photos
