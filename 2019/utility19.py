@@ -25,7 +25,8 @@ class Photo():
         Orien = 'H'
         return Photo((self.id,photo2.id), Orien, nTags, tagsS, tagsL)
     
-
+    def __str__(self):
+        return str(self.__dict__)
 
 def readInput(inputFile):
     inputPath = "Data Sets\\"+inputFile+".txt"
@@ -44,7 +45,7 @@ def readInput(inputFile):
     return N, photos
 
 def sortPhotos(photos):
-    sorted(photos, key=lambda photo: photo.n) 
+    return sorted(photos, key=lambda photo: -photo.nTags) 
 
 
 
@@ -75,7 +76,3 @@ def exportOutputs(outputFile, Outputs):
         for i in Outputs:
             outfile.write(str(i.id)+"\n")
             #n+=1
-
-
-def sortPhotos(photos):
-    sorted(photos, key=lambda photo: photo.n) 

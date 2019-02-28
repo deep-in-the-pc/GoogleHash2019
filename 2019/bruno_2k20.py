@@ -1,20 +1,28 @@
 from utility19 import *
 
-n, photos = readInputB("a_example")
+n, photos = readInputB("c_memorable_moments")
 
 
 photos.sort(key=lambda x: x.nTags)
 
-for i in photos:
-    print(i.id, i.nTags, i.tags, i.Orientation)
+
 
 slide = list()
 
-photosV = []
+PhotosV = []
+PhotosH = []
 
 for pho in photos:
-    if(pho.Orien == 'V'):
-        photosV.append(pho)
+    if(pho.Orientation == 'V'):
+        PhotosV.append(pho)
+    else:
+        PhotosH.append(pho)
 
-ordPhotosV =  sortPhotos(photosV)
+PhotosV.sort(key=lambda x: -x.nTags)
+
+for pho1 in PhotosV:
+    for pho2 in PhotosV:
+        pho1.merge
+
+print(PhotosV[0])
 
