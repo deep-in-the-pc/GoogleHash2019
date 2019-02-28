@@ -20,3 +20,6 @@ def readInput(inputFile):
             photos.append(Photo(O, nT, tags))
 
     return N, photos
+
+def sortPhotos(photos):
+    sorted(photos, key=lambda photo: photo.n) 
