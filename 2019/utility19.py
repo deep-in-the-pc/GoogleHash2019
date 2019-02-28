@@ -15,8 +15,11 @@ def readInput(inputFile):
         firstline = data.readline()
         N = int(firstline)
         for row in data.readlines():
-            for i in row.split():
-                O, nT, tags = [int(i) for i in row.split()]
+            line = row.split()
+            O = line[0]
+            nT = int(line[1])
+            tags = [i for i in line[2:]]
+
             photos.append(Photo(O, nT, tags))
 
     return N, photos
