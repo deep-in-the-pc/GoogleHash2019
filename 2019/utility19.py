@@ -7,13 +7,9 @@ class Photo():
         self.tags = tags
 
     def comparePhotos(self,photo2):
-        inters
-        photo1_only
-        photo2_only
-        for tag in self.tags:
-            for tag_2 in self.photo2:
-                if tag == tag_2:
-                    inters += 1
+        inters = self.tags & photo2.tags
+        photo1_only = self.tags - photo2.tags
+        photo2_only = photo2.tags - self.tags
 
         photo1_only = self.nT - inters
         photo2_only = photo2.nT - inters
