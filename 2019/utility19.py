@@ -18,11 +18,12 @@ class Photo():
 
         return min(inters,photo1_only,photo2_only)
 
-    def mergePhoto(self,photo2):
-        tags = self.tags + photo2.tags
-        nTags = len(tags)
+    def mergePhoto(self, photo2):
+        tagsS = self.tagsS.union(photo2.tagsS)
+        tagsL = list(tagsS)
+        nTags = len(tagsL)
         Orien = 'H'
-        return Photo(Orien,nTags,tags)
+        return Photo((self.id,photo2.id), Orien, nTags, tagsS, tagsL)
     
 
 
@@ -65,6 +66,16 @@ def readInputB(inputFile):
             n+=1
 
     return N, photos
+
+def exportOutputs(outputFile, Outputs):
+    outputPath = "Data Sets\\" + outputFile + ".out"
+    with open(outputPath, 'w') as outfile:
+        #n = 1
+        outfile.write(str(len(Outputs))+"\n")
+        for i in Outputs:
+            outfile.write(str(i.id)+"\n")
+            #n+=1
+
 
 def sortPhotos(photos):
     sorted(photos, key=lambda photo: photo.n) 
