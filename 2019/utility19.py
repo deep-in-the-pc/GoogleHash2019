@@ -18,8 +18,12 @@ class Photo():
 
         return min(inters,photo1_only,photo2_only)
 
-    import numpy as np
-
+    def mergePhoto(self,photo2):
+        tags = self.tags + photo2.tags
+        nTags = len(tags)
+        Orien = 'H'
+        return Photo(Orien,nTags,tags)
+    
 class Photo():
     def __init__(self, o, nT, tags):
         self.Orientation = o
@@ -36,11 +40,7 @@ class Photo():
 
         return min(inters,photo1_only,photo2_only)
 
-    def mergePhoto(self,photo2):
-        tags = self.tags + photo2.tags
-        nTags = len(tags)
-        Orien = H
-        return Photo(Orien,nTags,tags)
+
 
 def readInput(inputFile):
     inputPath = "Data Sets\\"+inputFile+".txt"
