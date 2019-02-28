@@ -11,7 +11,6 @@ for i in photos:
 slide = list()
 
 while(len(photos)>0):
-
     for i in range(len(photos)):
         for n in range(len(photos[i:])):
             for tag in photos[i].tagsL:
