@@ -1,4 +1,4 @@
-import numpy as np
+#import numpy as np
 
 class Photo():
     def __init__(self, id, o, nT, tagsS, tagsL):
@@ -47,8 +47,8 @@ def sortPhotos(photos):
 
 
 
-def readInput(inputFile):
-    inputPath = "Data Sets\\"+inputFile+".txt"
+def readInputB(inputFile):
+    inputPath = "C:\\Users\\Bruno Reis\\Desktop\\google hash\\GoogleHash2019\\2019\\Data Sets\\"+inputFile+".txt"
     with open(inputPath, 'r') as data:
         photos = list()
         firstline = data.readline()
