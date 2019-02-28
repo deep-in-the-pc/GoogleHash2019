@@ -6,6 +6,19 @@ class Photo():
         self.nTags = nT
         self.tags = tags
 
+    def comparePhotos(self,photo2):
+        inters
+        photo1_only
+        photo2_only
+        for tag in self.tags:
+            for tag_2 in self.photo2:
+                if tag == tag_2:
+                    inters += 1
+
+        photo1_only = self.nT - inters
+        photo2_only = photo2.nT - inters
+
+        return min(inters,photo1_only,photo2_only)
 
 
 def readInput(inputFile):
